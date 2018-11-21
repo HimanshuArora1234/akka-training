@@ -9,7 +9,7 @@ import com.neolynk.akka.actor.AccountActor._
 class AccountActor extends Actor {
 
   // Initial state
-  var balance = 0.0
+  private var balance = 0.0
 
   // Message processing
   override def receive: Receive = {
@@ -21,7 +21,7 @@ class AccountActor extends Actor {
       balance += amount
 
     case ShowMeTheMoney =>
-      sender ! balance
+      sender.tell(balance, self)
 
     // Simulate exception
     case _: String => throw new Exception("Random exception")
